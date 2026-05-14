@@ -28,7 +28,7 @@ export default function Map() {
     setIntersectedProductName(productName);
   };
 
-  const { nodes, materials, scene } = useGLTF("src/assets/map/map_no_tunnel_texture.glb");
+  const { nodes, materials, scene } = useGLTF("/assets/map/map_no_tunnel_texture.glb");
   const octree = useOctree(scene);
   const colliders = useRef([]);
 

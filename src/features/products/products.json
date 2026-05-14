@@ -19,7 +19,7 @@
             "colorCode": "green"
         }
     ],
-    "modelURL": "./src/assets/models/jesus.glb",
+    "modelURL": "/assets/models/jesus.glb",
     "position": { "x": -7, "y": -1, "z": 9 },
     "scale": "4.5"
     },
@@ -43,10 +43,10 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/purple_coral.glb",
+        "modelURL": "/assets/models/purple_coral.glb",
         "position": { "x": -25, "y": 0.25, "z": 1.5 },
         "scale": "2"
-        },  
+        },
     {
         "id": "3",
         "title": "Moai",
@@ -67,7 +67,7 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/moai.glb",
+        "modelURL": "/assets/models/moai.glb",
         "position": { "x": -14, "y": 0.25, "z": -12 },
         "scale": "2"
         },
@@ -91,7 +91,7 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/coral_piece.glb",
+        "modelURL": "/assets/models/coral_piece.glb",
         "position": { "x": 2, "y": 0.25, "z": 7 },
         "scale": "1.5"
     },
@@ -115,7 +115,7 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/pianta.glb",
+        "modelURL": "/assets/models/pianta.glb",
         "position": { "x": 35, "y": 0.25, "z": 0 },
         "scale": "2"
     },
@@ -139,7 +139,7 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/nave_pirata.glb",
+        "modelURL": "/assets/models/nave_pirata.glb",
         "position": { "x": 50, "y": 0.25, "z": 4 },
         "scale": "1.5"
     },
@@ -163,7 +163,7 @@
                 "colorCode": "green"
             }
         ],
-        "modelURL": "./src/assets/models/teschio.glb",
+        "modelURL": "/assets/models/teschio.glb",
         "position": { "x": 43, "y": 0, "z": 15 },
         "scale": "2"
     }

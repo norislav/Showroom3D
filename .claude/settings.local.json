@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\dev\\\\ShowRoom3D\" -Recurse -Force)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Select-Object -First 100)",
+      "Bash(mkdir -p C:/dev/ShowRoom3D/public/assets/map/enviroment C:/dev/ShowRoom3D/public/assets/models/decors)",
+      "Bash(cp -r C:/dev/ShowRoom3D/src/assets/map/. C:/dev/ShowRoom3D/public/assets/map/)",
+      "Bash(cp -r C:/dev/ShowRoom3D/src/assets/models/. C:/dev/ShowRoom3D/public/assets/models/)"
+    ]
+  }
+}

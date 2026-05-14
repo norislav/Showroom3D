@@ -15,12 +15,12 @@ const Scene = (props) => {
      <PointerLock />
       <Environment
         files={[
-          "src/assets/map/enviroment/px.png",
-          "src/assets/map/enviroment/nx.png",
-          "src/assets/map/enviroment/py.png",
-          "src/assets/map/enviroment/ny.png",
-          "src/assets/map/enviroment/pz.png",
-          "src/assets/map/enviroment/nz.png",
+          "/assets/map/enviroment/px.png",
+          "/assets/map/enviroment/nx.png",
+          "/assets/map/enviroment/py.png",
+          "/assets/map/enviroment/ny.png",
+          "/assets/map/enviroment/pz.png",
+          "/assets/map/enviroment/nz.png",
         ]}
         background
       />
