@@ -7,30 +7,34 @@ import Models from "../products/Models";
 import Raycaster from "../raycaster/Raycaster";
 import Decorations from "../decorations/Decorations";
 import Flashlight from "../flashlight/Flashlight";
+import * as THREE from "three";
 
 export default function Map() {
+  const [productObjects, setProductObjects] = useState<THREE.Object3D[]>([]);
 
-  const [productObjects, setProductObjects] = useState([]);
-
-  const handleModelsRendered = (renderedObjects) => {
+  const handleModelsRendered = (renderedObjects: THREE.Object3D[]) => {
     setProductObjects(renderedObjects);
   };
 
-  const [decorObjects, setDecorObjects] = useState([]);
+  const [decorObjects, setDecorObjects] = useState<THREE.Object3D[]>([]);
 
-  const handleDecorsRendered = (renderedObjects) => {
+  const handleDecorsRendered = (renderedObjects: THREE.Object3D[]) => {
     setDecorObjects(renderedObjects);
   };
 
-  const [intersectedProductName, setIntersectedProductName] = useState(null);
+  const [intersectedProductName, setIntersectedProductName] = useState<
+    string | null
+  >(null);
 
-  const handleIntersectedProduct = (productName) => {
+  const handleIntersectedProduct = (productName: string) => {
     setIntersectedProductName(productName);
   };
 
-  const { nodes, materials, scene } = useGLTF("/assets/map/map_no_tunnel_texture.glb");
+  const { nodes, materials, scene } = useGLTF(
+    "/assets/map/map_no_tunnel_texture.glb",
+  ) as any;
   const octree = useOctree(scene);
-  const colliders = useRef([]);
+  const colliders = useRef<THREE.Object3D[]>([]);
 
   return (
     <>
@@ -194,7 +198,7 @@ export default function Map() {
       </group>
       <Lights />
       <Flashlight />
-      <Player octree={octree} colliders={colliders.current} />
+      <Player octree={octree} />
       <Models octree={octree} onRendered={handleModelsRendered} />
       <Decorations octree={octree} onRendered={handleDecorsRendered} />
       <Raycaster productObjects={productObjects} decorObjects={decorObjects} />

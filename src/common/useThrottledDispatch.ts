@@ -1,8 +1,8 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
-function useThrottledDispatch(action, value, delay) {
-  const valueRef = useRef(value);
-  const timeoutRef = useRef(null);
+function useThrottledDispatch<T>(action: (value: T) => void, value: T, delay: number) {
+  const valueRef = useRef<T>(value);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     valueRef.current = value;
@@ -19,7 +19,7 @@ function useThrottledDispatch(action, value, delay) {
     }
 
     return () => {
-      clearTimeout(timeoutRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [action, delay]);
 }

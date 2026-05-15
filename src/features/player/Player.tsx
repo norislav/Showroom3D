@@ -222,4 +222,6 @@ export default function Player({ octree }: { octree: any }) {
     }
     teleportPlayerIfOob(camera, capsule, playerVelocity);
   });
+
+  return null;
 }
