@@ -1,18 +1,20 @@
-import React, {useEffect} from "react";
+import { useEffect } from "react";
 import { Environment } from "@react-three/drei";
-
 import Map from "../map/Map";
 import PointerLock from "../pointerLock/pointerLock";
 
-const Scene = (props) => {
-  useEffect(()=>{
-    props.sceneIsLoad(true);
-    console.log("la scena e' stata caricata");
-  },[]);
+interface SceneProps {
+  sceneIsLoad: (loaded: boolean) => void;
+}
+
+const Scene = ({ sceneIsLoad }: SceneProps) => {
+  useEffect(() => {
+    sceneIsLoad(true);
+  }, []);
 
   return (
     <>
-     <PointerLock />
+      <PointerLock />
       <Environment
         files={[
           "/assets/map/enviroment/px.png",
