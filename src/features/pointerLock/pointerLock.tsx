@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useThree } from "@react-three/fiber";
 import { PointerLockControls as ThreePointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
+import { RootState } from "../../app/rootReducer";
 
 const PointerLock = () => {
   const { camera, gl } = useThree();
-  const isSidebarVisible = useSelector(state => state.ui.isSidebarVisible);
-
-  let controls;
+  const isSidebarVisible = useSelector(
+    (state: RootState) => state.ui.isSidebarVisible,
+  );
 
   useEffect(() => {
-    controls = new ThreePointerLockControls(camera, gl.domElement);
+    const controls = new ThreePointerLockControls(camera, gl.domElement);
     controls.update = () => {}; // Add update function to the instance
 
     // Event listener for pointer lock change
@@ -26,35 +27,35 @@ const PointerLock = () => {
     document.addEventListener("pointerlockerror", () => {});
 
     return () => {
-      document.removeEventListener("pointerlockchange", handlePointerLockChange);
+      document.removeEventListener(
+        "pointerlockchange",
+        handlePointerLockChange,
+      );
       document.removeEventListener("pointerlockerror", () => {});
     };
   }, [camera, gl]);
 
   useEffect(() => {
-    const handleClick = (event) => {
+    const handleClick = (event: MouseEvent) => {
       if (!isSidebarVisible && event.target === gl.domElement) {
         gl.domElement.requestPointerLock();
       }
     };
-  
+
     document.addEventListener("mousedown", handleClick);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClick);
     };
   }, [gl, isSidebarVisible]);
-  
 
   useEffect(() => {
     if (isSidebarVisible) {
       document.exitPointerLock();
-    }
-    else{
+    } else {
       gl.domElement.requestPointerLock();
     }
   }, [isSidebarVisible]);
-
 
   useEffect(() => {
     gl.domElement.requestPointerLock();
