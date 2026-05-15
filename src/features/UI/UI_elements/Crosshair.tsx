@@ -1,18 +1,19 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import "../ui.css"
+import type { RootState } from "../../../app/rootReducer";
+import "../ui.css";
 
 const Crosshair = () => {
   const intersectedProductID = useSelector(
-    (state) => state.raycaster.intersectedProductID
+    (state: RootState) => state.raycaster.intersectedProductID
   );
-  let crosshairClass = "crosshair";
 
+  let crosshairClass = "crosshair";
   if (intersectedProductID === "decoration") {
     crosshairClass += " crosshair-red-x";
   } else if (intersectedProductID) {
     crosshairClass += " crosshair-yellow";
   }
+
   return <div className={crosshairClass}></div>;
 };
 
