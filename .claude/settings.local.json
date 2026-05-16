@@ -7,7 +7,10 @@
       "Bash(Select-Object -First 100)",
       "Bash(mkdir -p C:/dev/ShowRoom3D/public/assets/map/enviroment C:/dev/ShowRoom3D/public/assets/models/decors)",
       "Bash(cp -r C:/dev/ShowRoom3D/src/assets/map/. C:/dev/ShowRoom3D/public/assets/map/)",
-      "Bash(cp -r C:/dev/ShowRoom3D/src/assets/models/. C:/dev/ShowRoom3D/public/assets/models/)"
+      "Bash(cp -r C:/dev/ShowRoom3D/src/assets/models/. C:/dev/ShowRoom3D/public/assets/models/)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(git push *)"
     ]
   }
 }

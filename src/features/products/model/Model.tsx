@@ -13,9 +13,8 @@ const Model = ({ product, onRendered, octree }: ModelProps) => {
   const glb = useGLTF(product.modelURL) as any;
   const modelRef = useRef<THREE.Object3D | null>(null);
 
-  const color = product.variants.find(
-    (v) => v.colorName === product.selectedColor,
-  )?.colorCode;
+  const color =
+    product.selectedColor === "standard" ? undefined : product.selectedColor;
 
   const clonedScene = useMemo(() => {
     const clone = glb.scene.clone();
@@ -28,6 +27,7 @@ const Model = ({ product, onRendered, octree }: ModelProps) => {
           child.material = material.clone();
         }
         (child as any).productID = product.id;
+        (child as any).originalColor = (child.material as THREE.MeshStandardMaterial).color.clone();
         child.castShadow = true;
         child.receiveShadow = true;
       }
@@ -49,10 +49,15 @@ const Model = ({ product, onRendered, octree }: ModelProps) => {
   }, [clonedScene]);
 
   useEffect(() => {
-    if (!color) return;
     clonedScene.traverse((child: THREE.Object3D) => {
       if (child instanceof THREE.Mesh) {
-        (child.material as THREE.MeshStandardMaterial).color.set(color);
+        const material = child.material as THREE.MeshStandardMaterial;
+        if (color) {
+          material.color.set(color).convertSRGBToLinear();
+        } else {
+          const original = (child as any).originalColor as THREE.Color;
+          if (original) material.color.copy(original);
+        }
       }
     });
   }, [color, clonedScene]);
