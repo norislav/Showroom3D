@@ -187,7 +187,6 @@ export default function Map() {
           </group>
         </group>
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Landscape001.geometry}
           material={materials.Material}

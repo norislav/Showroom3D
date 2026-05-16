@@ -27,14 +27,15 @@ export default function Player({ octree }: { octree: any }) {
   const playerOnFloor = useRef(false);
   const playerVelocity = useMemo(() => new Vector3(), []);
   const playerDirection = useMemo(() => new Vector3(), []);
+  const initialPos = useRef(playerPosition);
   const capsule = useMemo(
     () =>
       new Capsule(
-        new Vector3(playerPosition.x, playerPosition.y - 1, playerPosition.z),
-        new Vector3(playerPosition.x, playerPosition.y, playerPosition.z),
+        new Vector3(initialPos.current.x, initialPos.current.y - 1, initialPos.current.z),
+        new Vector3(initialPos.current.x, initialPos.current.y, initialPos.current.z),
         0.5,
       ),
-    [playerPosition],
+    [],
   );
 
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export default function Player({ octree }: { octree: any }) {
     return () => {
       document.removeEventListener("pointerdown", onPointerDown);
     };
-  });
+  }, []);
 
   const keyboard = useKeyboard();
 

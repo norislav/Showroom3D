@@ -1,7 +1,7 @@
 import { useThree, useFrame } from "@react-three/fiber";
 import { useDispatch, useSelector } from "react-redux";
 import { setIntersectedProductID } from "./raycasterSlice";
-import useRaycasterLogic from "./useRaycasterLogic";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 import { RootState } from "../../app/rootReducer";
 
@@ -12,35 +12,33 @@ const Raycaster = ({
   productObjects: THREE.Object3D[];
   decorObjects: THREE.Object3D[];
 }) => {
-  const { camera, raycaster: threeRaycaster } = useThree();
-  //raycaster.far = 5;
-
-  const intersectedProductID = useSelector(
-    (state: RootState) => state.raycaster.intersectedProductID,
-  );
+  const { camera, raycaster } = useThree();
   const dispatch = useDispatch();
   const isSidebarVisible = useSelector(
     (state: RootState) => state.ui.isSidebarVisible,
   );
-  const intersects = useRaycasterLogic(
-    camera,
-    threeRaycaster,
-    productObjects,
-    decorObjects,
-  );
+
+  const center = useMemo(() => new THREE.Vector2(0, 0), []);
+  const lastProductID = useRef<string | null>(null);
+
+  raycaster.far = 8;
 
   useFrame(() => {
-    if (!isSidebarVisible) {
-      if (intersects.length > 0) {
-        const intersectedObject = intersects[0].object as any;
-        let intersectedProductID = intersectedObject.productID;
+    if (isSidebarVisible) return;
 
-        if (intersectedObject) {
-          dispatch(setIntersectedProductID(intersectedProductID));
-        }
-      } else {
-        dispatch(setIntersectedProductID(null));
-      }
+    raycaster.setFromCamera(center, camera);
+    const intersects = raycaster.intersectObjects(
+      [...productObjects, ...decorObjects],
+      true,
+    );
+
+    const newID = intersects.length > 0
+      ? (intersects[0].object as any).productID ?? null
+      : null;
+
+    if (newID !== lastProductID.current) {
+      lastProductID.current = newID;
+      dispatch(setIntersectedProductID(newID));
     }
   });
 
