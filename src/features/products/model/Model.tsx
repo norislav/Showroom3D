@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import type { Product } from "../../../types";
@@ -11,77 +11,60 @@ interface ModelProps {
 
 const Model = ({ product, onRendered, octree }: ModelProps) => {
   const glb = useGLTF(product.modelURL) as any;
-  const clonedScene = glb.scene.clone();
   const modelRef = useRef<THREE.Object3D | null>(null);
-  const positionArray = [
-    product.position.x,
-    product.position.y,
-    product.position.z,
-  ];
 
-  const selectedColorName = product.selectedColor;
-  const selectedColor = product?.variants.find(
-    (variant) => variant.colorName === selectedColorName,
+  const color = product.variants.find(
+    (v) => v.colorName === product.selectedColor,
+  )?.colorCode;
+
+  const clonedScene = useMemo(() => {
+    const clone = glb.scene.clone();
+    clone.traverse((child: THREE.Object3D) => {
+      if (child instanceof THREE.Mesh) {
+        const material = child.material as THREE.MeshStandardMaterial;
+        if (
+          Object.prototype.hasOwnProperty.call(glb.materials, material.name)
+        ) {
+          child.material = material.clone();
+        }
+        (child as any).productID = product.id;
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    return clone;
+  }, [glb.scene, product.id]);
+
+  const positionArray = useMemo(
+    () => [product.position.x, product.position.y, product.position.z],
+    [product.position.x, product.position.y, product.position.z],
   );
-  const color = selectedColor?.colorCode;
 
   useEffect(() => {
+    octree.fromGraphNode(clonedScene);
     if (modelRef.current) {
       (modelRef.current as any).productID = product.id;
       onRendered(modelRef.current);
     }
-  }, []);
+  }, [clonedScene]);
 
   useEffect(() => {
-    octree.fromGraphNode(clonedScene);
-  }, []);
-
-  clonedScene.traverse((child: THREE.Object3D) => {
-    if (child instanceof THREE.Mesh) {
-      const mesh = child;
-      const material = mesh.material as THREE.MeshStandardMaterial;
-      const materialName = material.name;
-      if (glb.materials.hasOwnProperty(materialName)) {
-        mesh.material = material.clone();
-        if (color) {
-          (mesh.material as THREE.MeshStandardMaterial).color.set(color);
-        }
-      }
-    }
-  });
-
-  useEffect(() => {
+    if (!color) return;
     clonedScene.traverse((child: THREE.Object3D) => {
       if (child instanceof THREE.Mesh) {
-        const mesh = child as THREE.Mesh;
-        (mesh as any).productID = product.id;
-        mesh.castShadow = false;
-        mesh.receiveShadow = false;
+        (child.material as THREE.MeshStandardMaterial).color.set(color);
       }
     });
-  }, [clonedScene, product.id]);
-
-  useEffect(() => {
-    if (color && modelRef.current) {
-      modelRef.current.traverse((child: THREE.Object3D) => {
-        if (child instanceof THREE.Mesh) {
-          const mesh = child as THREE.Mesh;
-          (mesh.material as THREE.MeshStandardMaterial).color.set(color);
-        }
-      });
-    }
-  }, [color, modelRef]);
+  }, [color, clonedScene]);
 
   return (
-    <>
-      <primitive
-        ref={modelRef}
-        object={clonedScene}
-        scale={product.scale}
-        position={positionArray}
-        renderOrder={1}
-      />
-    </>
+    <primitive
+      ref={modelRef}
+      object={clonedScene}
+      scale={product.scale}
+      position={positionArray}
+      renderOrder={1}
+    />
   );
 };
 
