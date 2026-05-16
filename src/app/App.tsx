@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { Stats } from "@react-three/drei";
 import Scene from "../features/scene/Scene";
 import UI from "../features/UI/UI";
 import { Suspense } from "react";
@@ -15,6 +16,7 @@ export default function App() {
           <fog attach="fog" color="black" near={10} far={50} />
           <Scene sceneIsLoad={setSceneIsLoad} />
         </Suspense>
+        <Stats />
       </Canvas>
     </>
   );
