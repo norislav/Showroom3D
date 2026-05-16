@@ -11,7 +11,7 @@ export default function App() {
   return (
     <>
       {isSceneLoaded && <UI />}
-      <Canvas shadows>
+      <Canvas shadows dpr={[1, 2]}>
         <Suspense fallback={<LoadingScreen />}>
           <fog attach="fog" color="black" near={10} far={50} />
           <Scene sceneIsLoad={setSceneIsLoad} />
