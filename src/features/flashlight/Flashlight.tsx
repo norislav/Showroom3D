@@ -1,20 +1,22 @@
-import { useState, useRef, useEffect } from "react";
-import { Vector3, Object3D } from "three";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Object3D } from "three";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 function Flashlight() {
   const ref = useRef<THREE.SpotLight | null>(null);
   const { scene, camera } = useThree();
-  const vector = new Vector3(0, 0.29, 0);
-  const target = new Object3D();
-  const [onOff, setOnOff] = useState(0);
+  const target = useMemo(() => {
+    const obj = new Object3D();
+    obj.position.set(0, 0.29, 0);
+    return obj;
+  }, []);
 
-  target.position.copy(vector);
-  camera.add(target);
+  const [isOn, setIsOn] = useState(false);
 
   useEffect(() => {
     if (ref.current) {
+      camera.add(target);
       camera.add(ref.current);
       scene.add(camera);
     }
@@ -23,22 +25,14 @@ function Flashlight() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "KeyF") {
-        if (onOff === 0) {
-          if (ref.current) ref.current.intensity = 10;
-          setOnOff(1);
-        } else {
-          if (ref.current) ref.current.intensity = 0;
-          setOnOff(0);
-        }
+        setIsOn((prev) => !prev);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onOff]);
-
-  //useHelper(ref, SpotLightHelper, 'cyan')
+  }, []);
 
   return (
     <spotLight
@@ -47,9 +41,9 @@ function Flashlight() {
       position={[0, 0.25, 0.2]}
       angle={Math.PI / 8}
       penumbra={0.3}
-      intensity={0}
+      intensity={isOn ? 8 : 0}
       decay={0}
-      castShadow
+      castShadow={isOn}
       shadow-mapSize-width={1024}
       shadow-mapSize-height={1024}
       shadow-bias={-0.0001}
