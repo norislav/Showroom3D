@@ -1,78 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
-    --primary-bg: #252A2F;
-    --lighter-bg: #31363a;
-    --primary-accent: #44CFD4;
-    --accent-darker: #18AEB4;
-    --primary-heading: #FFFFFF;
-    --primary-subheading: rgba(255, 255, 255, 0.8);
-    --primary-text: rgba(255, 255, 255, 0.5);
-    --button-text: #000000;
-    --button-less-visible: #74808a;
+  --primary-bg: #252A2F;
+  --lighter-bg: #31363a;
+  --primary-accent: #44CFD4;
+  --accent-darker: #18AEB4;
+  --primary-heading: #FFFFFF;
+  --primary-subheading: rgba(255, 255, 255, 0.8);
+  --primary-text: rgba(255, 255, 255, 0.5);
 }
 
 .loading-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: var(--primary-bg);
-    font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-bg);
+  font-family: 'Poppins', sans-serif;
+  animation: fadeIn 0.4s ease-in;
 }
 
-.loading-screen h1 {
-    font-size: 4rem;
-    color: var(--primary-heading);
-
-    margin-bottom: 2rem;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.progress-bar-container {
-    width: 50%;
-    margin-top: 2rem;
-    text-align: center;
-    color: var(--accent-darker);
-
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 480px;
 }
 
-.progress-bar-container #progress-bar {
-    width: 100%;
-    height: 2.5rem;
-    border-radius: 30px;
-    margin-top: 2rem;
-
+.loading-title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--primary-heading);
+  margin: 0;
+  letter-spacing: -0.5px;
 }
 
-progress::-webkit-progress-bar {
-    width: 100%;
-    height: 2.5rem;
-    outline: none;
-    border-radius: 30px;
+.loading-title span {
+  color: var(--primary-accent);
 }
 
-progress::-webkit-progress-value {
-    background-color: var(--accent-darker);
-    border-radius: 30px;
-
+.loading-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-progress::-moz-progress-bar {
-    background-color: var(--accent-darker);
-    border-radius: 30px;
-
+.loading-bar-track {
+  flex: 1;
+  height: 4px;
+  background-color: var(--lighter-bg);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
-label[for="progress-bar"] {
-    font-size: 1.5rem;
-    color: var(--primary-heading);
-
+.loading-bar-fill {
+  height: 100%;
+  background-color: var(--primary-accent);
+  border-radius: 999px;
+  transition: width 0.2s ease-out;
+  box-shadow: 0 0 8px var(--primary-accent);
 }
 
-@media all and (max-width: 1265px) {
-    .loading-screen h1 {
-        font-size: 2.5rem;
-    }
+.loading-percentage {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-accent);
+  min-width: 36px;
+  text-align: right;
+}
+
+.loading-log {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  height: 140px;
+  justify-content: flex-start;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.log-entry.done {
+  opacity: 0.35;
+}
+
+.log-entry.active {
+  opacity: 1;
+}
+
+.log-arrow {
+  color: var(--primary-accent);
+}
+
+.log-filename {
+  color: var(--primary-subheading);
+  flex: 1;
+}
+
+.log-check {
+  color: var(--primary-accent);
+}
+
+@media (max-width: 600px) {
+  .loading-content {
+    width: 85%;
+  }
+
+  .loading-title {
+    font-size: 1.8rem;
+  }
 }

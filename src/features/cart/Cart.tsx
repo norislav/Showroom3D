@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import CartItem from "./CartItem";
-import { removeAllItems, selectorCartItems } from "./cartSlice";
-import { selectorTotalCost } from "./cartSlice";
+import { removeAllItems, selectorCartItems, selectorTotalCost } from "./cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./cart.css";
 
@@ -10,22 +8,22 @@ const Cart = () => {
   const totalCost = useSelector(selectorTotalCost);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    addEventListener("wheel", (e: WheelEvent) => {
-      if (e.deltaY > 0) {
-        document.getElementsByClassName("item-scroll")[0].scrollBy(0, 80);
-      } else if (e.deltaY < 0) {
-        document.getElementsByClassName("item-scroll")[0].scrollBy(0, -80);
-      }
-    });
-  }, []); // empty array = runs once on mount, cleanup runs on unmount
-
   return (
     <div id="cart">
-      <h2 id="cart-title">Shopping Cart</h2>
-      <ul className="item-scroll">
-        {items.map((cartitem) => {
-          return (
+      <div id="cart-header">
+        <h2 id="cart-title">Cart</h2>
+        {items.length > 0 && (
+          <span id="cart-badge">{items.length}</span>
+        )}
+      </div>
+
+      {items.length === 0 ? (
+        <div id="cart-empty">
+          <p>Your cart is empty</p>
+        </div>
+      ) : (
+        <ul className="item-scroll">
+          {items.map((cartitem) => (
             <li key={cartitem.id}>
               <CartItem
                 name={cartitem.id}
@@ -34,17 +32,22 @@ const Cart = () => {
                 color={cartitem.color}
               />
             </li>
-          );
-        })}
-      </ul>
-      <hr id="separator-cart" />
-      <p id="total-cost">Total: {totalCost.toFixed(2)} €</p>
-      <div id="group-cart">
-        <button id="remove-all" onClick={() => dispatch(removeAllItems())}>
-          Remove all
-        </button>
-        <button id="fakebuy">Checkout</button>
-      </div>
+          ))}
+        </ul>
+      )}
+
+      {items.length > 0 && (
+        <>
+          <hr id="separator-cart" />
+          <p id="total-cost">Total: <span>{totalCost.toFixed(2)} €</span></p>
+          <div id="group-cart">
+            <button id="remove-all" onClick={() => dispatch(removeAllItems())}>
+              Remove all
+            </button>
+            <button id="fakebuy">Checkout</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
