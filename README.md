@@ -1,6 +1,6 @@
-# Showroom 3D
+# Showroom 3D (7Clickers)
 
-A personal revamp of a project I built in a team during my Bachelor's degree in Computer Science. The app consists of a first-person 3D showroom where users could walk around, inspect products, and add them to a (fake) cart. It was already built with React, React Three Fiber, and Redux Toolkit, but the codebase had accumulated technical debt and performance issues that made it noticeably laggy.
+A personal revamp of a project I built in a team called 7Clickers during my Bachelor's degree in Computer Science. The app consists of a first-person 3D showroom where users could walk around, inspect products, and add them to a (fake) cart. It was already built with React, React Three Fiber, and Redux Toolkit, but the codebase had accumulated technical debt and performance issues that made it noticeably laggy.
 
 This version is a rewrite focused on TypeScript, rendering performance, and a cleaner UI.
 
