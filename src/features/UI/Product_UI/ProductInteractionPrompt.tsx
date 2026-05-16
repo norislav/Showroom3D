@@ -6,9 +6,18 @@ interface ProductInteractionPromptProps {
 }
 
 const ProductInteractionPrompt = ({ productTitle, intersectedProductID }: ProductInteractionPromptProps) => {
+  if (intersectedProductID === "decoration") {
+    return (
+      <div className="model-interaction-prompt">
+        Coming soon
+      </div>
+    );
+  }
+
   return (
     <div className="model-interaction-prompt">
-      {intersectedProductID === "decoration" ? "Coming soon" : productTitle}
+      <span className="prompt-key">CLICK</span>
+      {productTitle}
     </div>
   );
 };

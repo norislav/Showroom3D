@@ -3,6 +3,7 @@ import "../ui.css";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../cart/cartSlice";
 import { setSelectedColor } from "../../products/productSlice";
+import { setIsSidebarVisible } from "../uiSlice";
 import type { Product } from "../../../types";
 
 interface ProductSidebarProps {
@@ -17,51 +18,41 @@ const ProductSidebar = forwardRef<HTMLDivElement, ProductSidebarProps>(
 
     if (!product) return null;
 
-    const visibleClass = isVisible ? "visible" : "";
     const selectedColor = product.selectedColor;
-
-    const handleIncrement = () => setQuantity(quantity + 1);
-    const handleDecrement = () => setQuantity(quantity - 1);
 
     return (
       <div
         ref={ref}
         id="product-sidebar"
-        className={`product-sidebar ${visibleClass}`}
+        className={`product-sidebar ${isVisible ? "visible" : ""}`}
       >
-        <div className="general-info">
+        <div className="sidebar-header">
           <h2 className="product-title">{product.title}</h2>
-          <p className="product-desc">{product.description}</p>
-          <div className="product-specs">
-            <p className="product-dimensions">dimensioni: 20x30x10cm</p>
-            <p className="product-weight">peso: 244g</p>
-          </div>
+          <button
+            className="sidebar-close"
+            onClick={() => dispatch(setIsSidebarVisible(false))}
+          >
+            ×
+          </button>
         </div>
-        <div className="color-selection">
-          <p>Seleziona il colore:</p>
+
+        <p className="product-desc">{product.description}</p>
+
+        <div className="sidebar-section">
+          <p className="sidebar-label">Color</p>
           <div className="color-picker-wrapper">
             <input
               type="color"
               value={selectedColor === "standard" ? "#ffffff" : selectedColor}
               onChange={(e) =>
-                dispatch(
-                  setSelectedColor({
-                    productID: product.id,
-                    colorCode: e.target.value,
-                  }),
-                )
+                dispatch(setSelectedColor({ productID: product.id, colorCode: e.target.value }))
               }
             />
             {selectedColor !== "standard" && (
               <button
                 className="reset-color-btn"
                 onClick={() =>
-                  dispatch(
-                    setSelectedColor({
-                      productID: product.id,
-                      colorCode: "standard",
-                    }),
-                  )
+                  dispatch(setSelectedColor({ productID: product.id, colorCode: "standard" }))
                 }
               >
                 Reset
@@ -69,43 +60,39 @@ const ProductSidebar = forwardRef<HTMLDivElement, ProductSidebarProps>(
             )}
           </div>
         </div>
-        <div className="product-quantity">
-          <p>quantita': </p>
-          <div className="quantity-number-input">
-            <button onClick={handleDecrement} className="decrement">
-              &lt;
-            </button>
-            <input
-              type="number"
-              value={quantity}
-              readOnly
-              className="number-input"
-            />
-            <button onClick={handleIncrement} className="increment">
-              &gt;
-            </button>
+
+        <div className="sidebar-section">
+          <p className="sidebar-label">Quantity</p>
+          <div className="quantity-row">
+            <div className="quantity-number-input">
+              <button className="decrement" onClick={() => setQuantity((q) => Math.max(1, q - 1))}>−</button>
+              <input type="number" value={quantity} readOnly className="number-input" />
+              <button className="increment" onClick={() => setQuantity((q) => q + 1)}>+</button>
+            </div>
           </div>
         </div>
-        <div className="product-cost">
-          <p>costo: </p>
-          <p className="amount">{product.price}€</p>
+
+        <div className="sidebar-section">
+          <p className="sidebar-label">Price</p>
+          <div className="price-row">
+            <p className="price-amount">{(product.price * quantity).toFixed(2)} €</p>
+          </div>
         </div>
-        <div className="add-to-cart">
+
+        <div className="sidebar-cta">
           <button
             className="add-btn"
             onClick={() =>
-              dispatch(
-                addItem({
-                  id: product.title,
-                  basePrice: product.price,
-                  quantity,
-                  price: product.price * quantity,
-                  color: selectedColor,
-                }),
-              )
+              dispatch(addItem({
+                id: product.title,
+                basePrice: product.price,
+                quantity,
+                price: product.price * quantity,
+                color: selectedColor,
+              }))
             }
           >
-            Aggiungi al carrello
+            Add to cart
           </button>
         </div>
       </div>

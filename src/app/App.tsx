@@ -16,7 +16,7 @@ export default function App() {
           <fog attach="fog" color="black" near={10} far={50} />
           <Scene sceneIsLoad={setSceneIsLoad} />
         </Suspense>
-        <Stats />
+        <Stats className="fps-stats" />
       </Canvas>
     </>
   );
