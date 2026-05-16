@@ -39,41 +39,35 @@ const ProductSidebar = forwardRef<HTMLDivElement, ProductSidebarProps>(
         </div>
         <div className="color-selection">
           <p>Seleziona il colore:</p>
-          {product.variants.map((variant) => (
-            <div key={variant.colorName} className="color-option">
-              <label htmlFor={`color-${variant.colorName}`}>
-                {variant.colorName}
-              </label>
-              <input
-                type="radio"
-                id={`color-${variant.colorName}`}
-                name="color"
-                className="radio-color"
-                value={variant.colorName}
-                checked={variant.colorName === selectedColor}
-                onClick={(e) => {
-                  const target = e.target as HTMLInputElement;
-                  if (target.checked && variant.colorName === selectedColor) {
-                    target.checked = false;
-                    dispatch(
-                      setSelectedColor({
-                        productID: product.id,
-                        colorName: "standard",
-                      }),
-                    );
-                  } else {
-                    dispatch(
-                      setSelectedColor({
-                        productID: product.id,
-                        colorName: variant.colorName,
-                      }),
-                    );
-                  }
-                }}
-                onChange={() => {}}
-              />
-            </div>
-          ))}
+          <div className="color-picker-wrapper">
+            <input
+              type="color"
+              value={selectedColor === "standard" ? "#ffffff" : selectedColor}
+              onChange={(e) =>
+                dispatch(
+                  setSelectedColor({
+                    productID: product.id,
+                    colorCode: e.target.value,
+                  }),
+                )
+              }
+            />
+            {selectedColor !== "standard" && (
+              <button
+                className="reset-color-btn"
+                onClick={() =>
+                  dispatch(
+                    setSelectedColor({
+                      productID: product.id,
+                      colorCode: "standard",
+                    }),
+                  )
+                }
+              >
+                Reset
+              </button>
+            )}
+          </div>
         </div>
         <div className="product-quantity">
           <p>quantita': </p>

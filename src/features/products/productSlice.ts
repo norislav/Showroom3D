@@ -16,15 +16,15 @@ export const productSlice = createSlice({
   reducers: {
     setSelectedColor(
       state,
-      action: PayloadAction<{ productID: string; colorName: string }>,
+      action: PayloadAction<{ productID: string; colorCode: string }>,
     ) {
-      const { productID, colorName } = action.payload;
+      const { productID, colorCode } = action.payload;
 
       const product = state.products.find(
         (product) => product.id === productID,
       );
       if (product) {
-        product.selectedColor = colorName;
+        product.selectedColor = colorCode;
       }
     },
   },
