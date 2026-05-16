@@ -1,168 +1,77 @@
 [
     {
-    "id": "1",
-    "title": "Jesus",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
-    "price": 49.99,
-    "selectedColor": "standard",
-    "variants": [
-        {
-            "colorName": "red",
-            "colorCode": "red"
-        },
-        {
-            "colorName": "blue",
-            "colorCode": "blue"
-        },
-        {
-            "colorName": "green",
-            "colorCode": "green"
-        }
-    ],
-    "modelURL": "/assets/models/jesus.glb",
-    "position": { "x": -7, "y": -1, "z": 9 },
-    "scale": "4.5"
+        "id": "1",
+        "title": "Jesus Statue",
+        "description": "A detailed resin figurine of Jesus Christ, hand-painted with aged finishing. A timeless piece for collectors and home decoration.",
+        "price": 49.99,
+        "selectedColor": "standard",
+        "variants": [],
+        "modelURL": "/assets/models/jesus.glb",
+        "position": { "x": -7, "y": -1, "z": 9 },
+        "scale": "4.5"
     },
     {
         "id": "2",
-        "title": "Corallo A",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Purple Coral",
+        "description": "A vibrant purple coral specimen, perfect for aquarium displays or as a decorative accent. Lightweight and UV-resistant.",
         "price": 9.99,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/purple_coral.glb",
         "position": { "x": -25, "y": 0.25, "z": 1.5 },
         "scale": "2"
-        },
+    },
     {
         "id": "3",
-        "title": "Moai",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Moai Statue",
+        "description": "A miniature replica of the iconic Easter Island Moai. Cast in textured concrete-finish resin, it brings a touch of ancient mystery to any space.",
         "price": 23.50,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/moai.glb",
         "position": { "x": -14, "y": 0.25, "z": -12 },
         "scale": "2"
-        },
+    },
     {
         "id": "4",
-        "title": "Corallo B",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Coral Piece",
+        "description": "A naturally shaped coral fragment with intricate branching detail. Great as a standalone accent or as part of a marine-themed display.",
         "price": 2.99,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/coral_piece.glb",
         "position": { "x": 2, "y": 0.25, "z": 7 },
         "scale": "1.5"
     },
     {
         "id": "5",
-        "title": "Alghe",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Seaweed Plant",
+        "description": "A lifelike seaweed sculpture made from flexible silicone. Adds an organic, underwater feel to terrariums, aquariums, or display shelves.",
         "price": 0.99,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/pianta.glb",
         "position": { "x": 35, "y": 0.25, "z": 0 },
         "scale": "2"
     },
     {
         "id": "6",
-        "title": "Nave Pirata",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Pirate Ship",
+        "description": "A highly detailed pirate ship model with hand-rigged sails and weathered wood finish. A statement piece for any collector or adventure enthusiast.",
         "price": 70.00,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/nave_pirata.glb",
         "position": { "x": 50, "y": 0.25, "z": 4 },
         "scale": "1.5"
     },
     {
         "id": "7",
-        "title": "Teschio",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vestibulum.",
+        "title": "Skull",
+        "description": "A stylised human skull sculpture with smooth surface finish. Compact and bold — works as a desk ornament, Halloween decoration, or gothic accent.",
         "price": 22.00,
         "selectedColor": "standard",
-        "variants": [
-            {
-                "colorName": "red",
-                "colorCode": "red"
-            },
-            {
-                "colorName": "blue",
-                "colorCode": "blue"
-            },
-            {
-                "colorName": "green",
-                "colorCode": "green"
-            }
-        ],
+        "variants": [],
         "modelURL": "/assets/models/teschio.glb",
         "position": { "x": 43, "y": 0, "z": 15 },
         "scale": "2"
