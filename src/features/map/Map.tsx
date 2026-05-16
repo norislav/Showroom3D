@@ -204,3 +204,14 @@ export default function Map() {
     </>
   );
 }
+
+useGLTF.preload("/assets/map/map_no_tunnel_texture.glb");
+useGLTF.preload("/assets/models/jesus.glb");
+useGLTF.preload("/assets/models/purple_coral.glb");
+useGLTF.preload("/assets/models/moai.glb");
+useGLTF.preload("/assets/models/coral_piece.glb");
+useGLTF.preload("/assets/models/pianta.glb");
+useGLTF.preload("/assets/models/nave_pirata.glb");
+useGLTF.preload("/assets/models/teschio.glb");
+useGLTF.preload("/assets/models/decors/ancora.glb");
+useGLTF.preload("/assets/models/decors/newcoral.glb");
